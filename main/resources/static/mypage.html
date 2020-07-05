@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <title>Document</title>
+    <script>
+        async function searchUserId(){
+    try{
+        let id = $('#search-userid').val();
+        console.log(id);
+        let response = await $.ajax({
+            type: 'GET',
+            url: '/api/user/id/' + id,
+            contentType: 'application/json',
+            data: JSON.stringify(id),
+            success: (data)=>{
+                $('#searchResultId1').text('아이디: ' + data.data.id);
+                $('#searchResultAccount1').text('사용자 아이디: ' + data.data.account);
+                $('#searchResultName1').text('사용자 이름: ' + data.data.username);
+                $('#searchResultTel1').text('사용자 전화번호: ' + data.data.tel);
+                $('#searchResultPhone1').text('사용자 휴대전화번호: ' + data.data.phone);
+                $('#searchResultZipcode1').text('사용자 전화번호: ' + data.data.zipcode);
+                $('#searchResultAddress1').text('사용자 전화번호: ' + data.data.address);
+                $('#searchResultEmail1').text('사용자 이메일: ' + data.data.email);
+            }
+        })
+    } catch(error){
+        console.log(error);
+    }
+}
+
+async function searchUserAccount(){
+    try{
+        let account = $('#search-account').val();
+
+        let response = await $.ajax({
+            type: 'GET',
+            url: '/api/user/account/' + account,
+            contentType: 'application/json',
+            data: JSON.stringify(account),
+            success: (data)=>{
+                $('#searchResultId2').text('아이디: ' + data.data.id);
+                $('#searchResultAccount2').text('사용자 아이디: ' + data.data.account);
+                $('#searchResultName2').text('사용자 이름: ' + data.data.username);
+                $('#searchResultTel2').text('사용자 전화번호: ' + data.data.tel);
+                $('#searchResultPhone2').text('사용자 휴대전화번호: ' + data.data.phone);
+                $('#searchResultZipcode2').text('사용자 전화번호: ' + data.data.zipcode);
+                $('#searchResultAddress2').text('사용자 전화번호: ' + data.data.address);
+                $('#searchResultEmail2').text('사용자 이메일: ' + data.data.email);
+            }
+        })
+    } catch(error){
+        console.log(error);
+    }
+}
+
+async function deleteUser(){
+    try{
+        let userid = $('#deleteUserid').val();
+
+        if(userid == ''){
+            alert('삭제할 사용자의 아이디를 작성해주세요.');
+            return;
+        }
+
+        let response = await $.ajax({
+            type: 'DELETE',
+            url: '/api/user/' + userid,
+            contentType:'application/json',
+            data: JSON.stringify(userid),
+            success: ()=>{
+                alert('사용자가 삭제되었습니다.');
+                location.reload();
+            }
+        })
+    } catch(error){
+        console.log(error);
+    }
+}
+    </script>
+</head>
+<body>
+    <div id="findByid">
+        <h1>아이디로 유저 찾기</h1>
+        <p>id: <input type="text" id="search-userid"></p>
+        <button onclick="searchUserId()">확인</button>
+        <p id="searchResultId1"></p>
+        <p id="searchResultAccount1"></p>
+        <p id="searchResultName1"></p>
+        <p id="searchResultTel1"></p>
+        <p id="searchResultPhone1"></p>
+        <p id="searchResultZipcode1"></p>
+        <p id="searchResultAddress1"></p>
+        <p id="searchResultEmail1"></p> 
+    </div>
+    <div>
+        <h1>사용자 아이디로 유저 찾기</h1>
+        <p>account: <input type="text" id="search-useraccount"></p>
+        <button onclick="searchUserAccount()">확인</button>
+        <p id="searchResultId2"></p>
+        <p id="searchResultAccount2"></p>
+        <p id="searchResultName2"></p>
+        <p id="searchResultTel2"></p>
+        <p id="searchResultPhone2"></p>
+        <p id="searchResultZipcode2"></p>
+        <p id="searchResultAddress2"></p>
+        <p id="searchResultEmail2"></p> 
+    </div>
+    <div>
+        <h1>회원 정보 수정</h1>
+    </div>
+    <div id="deleteUser">
+        <h1>회원탈퇴</h1>
+        <p>id: <input type="text" id="deleteUserid"></p>
+        <button onclick="deleteUser()">확인</button>
+    </div>
+</body>
+</html>

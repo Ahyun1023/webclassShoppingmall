@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <title>Document</title>
+    <script>
+            async function joinUser(){
+        try{
+            let user = {
+                account: $('#join-account').val(),
+                password: $('#join-password').val(),
+                username: $('#join-name').val(),
+                tel: $('#join-tel').val(),
+                phone: $('#join-phone').val(),
+                zipcode: $('#join-zipcode').val(),
+                address: $('#join-address').val(),
+                email: $('#join-email').val()
+            };
+            let response = await $.ajax({
+                type: 'POST',
+                url: '/api/user',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                success: () =>{
+                    alert('가입이 완료되었습니다.');
+                },
+            });
+            location.reload();
+        } catch(error){
+            console.log(error);
+        }
+    }
+    </script>
+</head>
+<body>
+    <h1>회원가입</h1>
+    <div id="signup">
+        <p>account: <input type="text" id="join-account"></p>
+        <p>password: <input type="password" id="join-password"></p>
+        <p>name: <input type="text" id="join-name"></p>
+        <p>tel: <input type="text" id="join-tel"></p>
+        <p>phone: <input type="text" id="join-phone"></p>
+        <p>zipcode: <input type="text" id="join-zipcode"></p>
+        <p>address: <input type="text" id="join-address"></p>
+        <p>email: <input type="text" id="join-email"></p>
+        <button onclick="joinUser()">확인</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function Go_MainPage(){
+            location.href = "./main.html";
+        }
+
+        window.onload = function(){
+            findall();
+        }
+    </script>
+</head>
+<body>
+    <h1>사용자 정보 수정</h1>
+    <div id="modify">
+        <p>정보를 수정할 사용자의 아이디: <input type="text" id="modify-id"></p>
+        <p>password: <input type="password" id="modify-password"></p>
+        <p>username: <input type="text" id="modify-username"></p>
+        <p>tel: <input type="text" id="modify-tel"></p>
+        <p>phone: <input type="text" id="modify-phone"></p>
+        <p>zipcode: <input type="text" id="modify-zipcode"></p>
+        <p>address: <input type="text" id="modify-address"></p>
+        <p>email: <input type="text" id="modify-email"></p>
+        <button onclick="modify()">확인</button>
+    </div>
+
+    <h1>사용자 목록</h1>
+    <div id="userList">
+        <!--유저 리스트 불러오는 곳-->
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>account</th>
+                        <th>name</th>
+                        <th>tel</th>
+                        <th>phone</th>
+                        <th>zipcode</th>
+                        <th>address</th>
+                        <th>email</th>
+                        <th>created</th>
+                        <th>modified</th>
+                    </tr>
+                </thead>
+                <tbody id="user-list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h1>아이디로 사용자 찾기</h1>
+    <div id="findByAccount">
+        <p>account: <input type="text" id="find-account"></p>
+        <button onclick="findByAccount()">확인</button>
+    </div>
+
+    <h1>id로 사용자 찾기</h1>
+    <div id="findById">
+        <p>id: <input type="text" id="find-id"></p>
+        <button onclick="findById()">확인</button>
+    </div>
+
+    <h1>id로 사용자 삭제</h1>
+    <div id="deleteById">
+        <p>id: <input type="text" id="delete-id"></p>
+        <button onclick="deleteById()">확인</button>
+    </div>
+    <br>
+    <button onclick="Go_MainPage()">메인으로 돌아가기</button>
+</body>
+</html>

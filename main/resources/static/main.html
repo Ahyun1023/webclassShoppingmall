@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+    <script>
+        function Go_userPage(){
+            location.href = "./user.html";
+        }
+
+        function Go_CartPage(){
+            location.href = "./cart.html";
+        }
+
+        function Go_top() {
+            window.scrollTo(0, 0);
+        }
+
+        async function search(){
+            let idOption = $('#search_option').val();
+            let search_id = $('#search_word').val();
+            let url = '';
+            if(idOption == 'id'){
+                url = idOption;
+            } else if(idOption == 'menuid'){
+                url = idOption;
+            } else if(idOption == 'submenuid'){
+                url = idOption;
+            }
+            try {
+                let response = await $.ajax({
+                    type: 'GET',
+                    url: '/api/product/' + url + '/' + search_id,
+                    contentType: 'application/json',
+                    success: (data) => {
+                        let result = data.data;
+                        console.log(result);
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        async function Productfindall(){
+            let result;
+            try {
+                let response = await $.ajax({
+                    type: 'GET',
+                    url: '/api/product',
+                    contentType: 'application/json',
+                    success: (data) => {
+                        let result = data.data;
+                        for (var i in result) {
+                            var innerHtml = "";
+                            innerHtml += '<tr>';
+                            innerHtml += '   <td>' + result[i].id + '</td>';
+                            innerHtml += '   <td>' + result[i].name + '</td>';
+                            innerHtml += '   <td>' + result[i].price + '</td>';
+                            innerHtml += '   <td>' + result[i].menuid + '</td>';
+                            innerHtml += '   <td>' + result[i].submenuid + '</td>';
+                            innerHtml += '   <td>' + result[i].details + '</td>';
+                            innerHtml += '   <td>' + result[i].factory + '</td>';
+                            $('#product-list').append(innerHtml);
+                        }
+
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+            }
+}
+
+        window.onload = function(){
+            Productfindall();
+        }
+    </script>
+</head>
+
+<body>
+    <div id="up_menu">
+        <span id="up_a_menu">
+            <a href="./signup.html" id="signup">회원가입</a>
+            <a href="./login.html" id="login">로그인</a>
+            <a href="./cart.html" id="cart">장바구니</a>
+            <a href='./mypage.html' id='mypage'>마이페이지</a>
+        </span>
+        <span id="search_bar">
+            <select name="search_option" id="search_option">
+                <option value="id">id</option>
+                <option value="menuid">menuid</option>
+                <option value="submenuid">submenuid</option>
+            </select>
+            <input type="text" name="search_word" id="search_word" required>
+            <button id="search_button" onclick="search()">검색</button>
+        </span>
+    </div>
+    <br>
+    <div id="quick_menu">
+        <span>퀵메뉴</span>
+        <hr style= "border: 2px solid gray;">
+        <span><a href="./cart.html" id="cart">장바구니</a></span>
+        <hr>
+        <span><a href='/mypage.html' id='mypage'>마이페이지</a></span>
+        <span><button onclick="Go_top()">TOP</button></span>
+    </div>
+    <div id="list_menu">
+        <ul>
+            <li><a href="./main.html">메인</a></li>
+            <li><a href="#">책</a>
+                <ul>
+                    <li><a href="#">교육</a></li>
+                    <li><a href="#">문학</a></li>
+                    <li><a href="#">어린이 도서</a></li>
+                </ul>
+            </li>
+            <li><a href="#">공연</a>
+            <ul>
+                <li><a href="#">뮤지컬</a></li>
+                <li><a href="#">영화</a></li>
+                <li><a href="#">콘서트</a></li>
+            </ul>
+        </li>
+    </ul>
+    </div>
+    <div id="banner">
+        <img src="./img/banner1.jpg">
+    </div>
+    <div id="product_list">
+        <div>
+            <table id="product_table">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>price</th>
+                        <th>menuid</th>
+                        <th>submenuid</th>
+                        <th>details</th>
+                        <th>factory</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list">
+                    <tr>
+                        <td>1</td>
+                        <td>책1</td>
+                        <td>11111</td>
+                        <td>책</td>
+                        <td>문학</td>
+                        <td>a</td>
+                        <td>a</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>책2</td>
+                        <td>11111</td>
+                        <td>책</td>
+                        <td>문학</td>
+                        <td>a</td>
+                        <td>a</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>책3</td>
+                        <td>11111</td>
+                        <td>책</td>
+                        <td>문학</td>
+                        <td>a</td>
+                        <td>a</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>책4</td>
+                        <td>11111</td>
+                        <td>책</td>
+                        <td>문학</td>
+                        <td>a</td>
+                        <td>a</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

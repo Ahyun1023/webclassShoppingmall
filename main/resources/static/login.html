@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <title>Document</title>
+    <script>
+        async function login(){
+    try{
+        let user = {
+            account: $('#login-account').val(),
+            password: $('#login-password').val()
+        };
+        let response = await $.ajax({
+            type: 'POST',
+            url: '/api/user/login',
+            contentType: 'application/json',
+            data: JSON.stringify(user),
+            success: () =>{
+                alert('로그인이 완료되었습니다.');
+            },
+        });
+        location.reload();
+    } catch(error){
+        console.log(error);
+    }
+}
+</script>
+</head>
+<body>
+    <h1>로그인</h1>
+    <div id="login">
+        <p>account: <input type="text" id="login-account"></p>
+        <p>password: <input type="password" id="login-password"></p>
+        <button onclick="login()">확인</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <title>Document</title>
+    <script>
+        async function findById(){
+            try {
+                let id = $('#search-id').val();
+                let response = await $.ajax({
+                    type: 'GET',
+                    url: '/api/cart/id/' + id,
+                    contentType: 'application/json',
+                    data: JSON.stringify(id),
+                    success: (data) => {
+                        $('#searchId1').text('아이디: ' + data.data.id);
+                        $('#searchUserid1').text('사용자 아이디: ' + data.data.userid);
+                        $('#searchProductid1').text('상품 아이디: ' + data.data.productid);
+                        $('#searchPrice1').text('상품 가격: ' + data.data.price);
+                        $('#searchAmount1').text(': ' + data.data.amount);
+                        $('#searchTotal1').text('총합: ' + data.data.total);
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        async function findByUserid(){
+            try {
+                let userid = $('#search-userid').val();
+                let response = await $.ajax({
+                    type: 'GET',
+                    url: '/api/cart/userid/' + userid,
+                    contentType: 'application/json',
+                    data: JSON.stringify(userid),
+                    success: (data) => {
+                        $('#searchId2').text('아이디: ' + data.data.id);
+                        $('#searchUserid2').text('사용자 아이디: ' + data.data.userid);
+                        $('#searchProductid2').text('상품 아이디: ' + data.data.productid);
+                        $('#searchPrice2').text('상품 가격: ' + data.data.price);
+                        $('#searchAmount2').text(': ' + data.data.amount);
+                        $('#searchTotal2').text('총합: ' + data.data.total);
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        async function deleteById(){
+            try {
+                let id = $('#delete-id').val();
+
+                let response = await $.ajax({
+                    type: 'DELETE',
+                    url: '/api/cart/id' + id,
+                    contentType: 'application/json',
+                    data: JSON.stringify(id),
+                    success: () => {
+                        alert('삭제되었습니다.');
+                        location.reload();
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        async function deleteByUserid(){
+            try {
+                let userid = $('#delete-userid').val();
+
+                let response = await $.ajax({
+                    type: 'DELETE',
+                    url: '/api/cart/userid' + userid,
+                    contentType: 'application/json',
+                    data: JSON.stringify(userid),
+                    success: () => {
+                        alert('삭제되었습니다.');
+                        location.reload();
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>id를 이용해 장바구니에 담은 상품 보기</h1>
+    <div id="findById">
+        <p>id: <input type="text" id="search-id"></p>
+        <button onclick="findById()">확인</button>
+        <p id="searchId1"></p>
+        <p id="searchUserid1"></p>
+        <p id="searchProductid1"></p>
+        <p id="searchPrice1"></p>
+        <p id="searchAmount1"></p>
+        <p id="searchTotal1"></p>
+    </div>
+
+    <h1>Userid를 이용해 장바구니에 담은 상품 보기</h1>
+    <div id="findByUserid">
+        <p>userid: <input type="text" id="search-Userid"></p>
+        <button onclick="findByUserid()">확인</button>
+        <p id="searchId2"></p>
+        <p id="searchUserid2"></p>
+        <p id="searchProductid2"></p>
+        <p id="searchPrice2"></p>
+        <p id="searchAmount2"></p>
+        <p id="searchTotal2"></p>
+    </div>
+
+    <h1>id를 이용해 장바구니에 담은 상품 삭제</h1>
+    <div id="deleteById">
+        <p>id: <input type="text" id="delete-id"></p>
+        <button onclick="deleteById()">확인</button>
+    </div>
+
+    <h1>Userid를 이용해 장바구니에 담은 상품 삭제</h1>
+    <div id="deleteByUserid">
+        <p>userid: <input type="text" id="delete-Userid"></p>
+        <button onclick="deleteByUserid()">확인</button>
+    </div>
+</body>
+</html>
